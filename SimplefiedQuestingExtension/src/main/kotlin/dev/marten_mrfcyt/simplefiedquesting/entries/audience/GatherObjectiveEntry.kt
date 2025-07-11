@@ -13,11 +13,11 @@ import com.typewritermc.engine.paper.extensions.placeholderapi.parsePlaceholders
 import com.typewritermc.engine.paper.snippets.snippet
 import com.typewritermc.engine.paper.utils.asMini
 import com.typewritermc.engine.paper.utils.asMiniWithResolvers
+import com.typewritermc.engine.paper.utils.item.Item
 import com.typewritermc.quest.ObjectiveEntry
 import com.typewritermc.quest.QuestEntry
 import com.typewritermc.quest.inactiveObjectiveDisplay
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder.parsed
-import org.bukkit.Material
 import org.bukkit.entity.Player
 import java.util.*
 import kotlin.math.absoluteValue
@@ -42,18 +42,19 @@ class GatherObjectiveEntry(
     override val id: String = "",
     override val name: String = "",
     override val quest: Ref<QuestEntry> = emptyRef(),
+    override val criteria: List<Criteria> = emptyList(),
     override val children: List<Ref<AudienceEntry>> = emptyList(),
     @Help("The item that the player needs to gather.")
-    val item: Var<Material> = ConstVar(Material.AIR),
+    val item: Var<Item> = ConstVar(Item.Empty),
     @Help("The amount of items to gather.")
     val amount: Var<Int> = ConstVar(1),
-    override val criteria: List<Criteria> = emptyList(),
     override val display: Var<String> = ConstVar(""),
     override val priorityOverride: Optional<Int> = Optional.empty(),
 ) : ObjectiveEntry {
 
     private fun itemCount(player: Player): Int {
-        return player.inventory.contents.filterNotNull().filter { item.get(player) == it.type }.sumOf { it.amount }
+        val item = item.get(player)
+        return player.inventory.contents.filterNotNull().filter { item.isSameAs(player, it) }.sumOf { it.amount }
     }
 
     override fun display(player: Player?): String {

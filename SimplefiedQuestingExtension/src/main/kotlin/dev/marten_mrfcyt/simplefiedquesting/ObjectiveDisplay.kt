@@ -8,16 +8,14 @@ import com.typewritermc.engine.paper.entry.matches
 import com.typewritermc.engine.paper.facts.FactListenerSubscription
 import com.typewritermc.engine.paper.facts.listenForFacts
 import com.typewritermc.engine.paper.utils.server
-import com.typewritermc.quest.ObjectiveEntry
-import com.typewritermc.quest.isQuestActive
-import com.typewritermc.quest.trackQuest
-import com.typewritermc.quest.trackedQuest
-import com.typewritermc.quest.trackedShowingObjectives
+import com.typewritermc.quest.*
 import org.bukkit.entity.Player
-import java.util.UUID
+import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
-abstract class ObjectiveDisplay<T : ObjectiveEntry>(val ref: Ref<T>) : AudienceFilter(ref) {
+abstract class ObjectiveDisplay<T : ObjectiveEntry>(
+    val ref: Ref<T>,
+) : AudienceFilter(ref) {
     private val factWatcherSubscriptions = ConcurrentHashMap<UUID, FactListenerSubscription>()
 
     override fun filter(player: Player): Boolean {

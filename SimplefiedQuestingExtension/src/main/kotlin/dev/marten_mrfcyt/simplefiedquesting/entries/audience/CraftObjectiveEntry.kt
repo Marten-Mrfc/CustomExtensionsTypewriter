@@ -7,6 +7,7 @@ import com.typewritermc.core.entries.ref
 import com.typewritermc.core.extension.annotations.Entry
 import com.typewritermc.core.extension.annotations.Help
 import com.typewritermc.engine.paper.entry.Criteria
+import com.typewritermc.engine.paper.entry.TriggerableEntry
 import com.typewritermc.engine.paper.entry.entries.*
 import com.typewritermc.quest.QuestEntry
 import dev.marten_mrfcyt.simplefiedquesting.BaseCountObjectiveDisplay
@@ -23,6 +24,7 @@ class CraftObjectiveEntry(
     override val id: String = "",
     override val name: String = "",
     override val quest: Ref<QuestEntry> = emptyRef(),
+    override val criteria: List<Criteria> = emptyList(),
     override val children: List<Ref<AudienceEntry>> = emptyList(),
     override val fact: Ref<CachableFactEntry> = emptyRef(),
     @Help("The item that the player needs to craft.")
@@ -30,7 +32,7 @@ class CraftObjectiveEntry(
     @Help("The amount of items to craft.")
     override val amount: Var<Int> = ConstVar(1),
     override val display: Var<String> = ConstVar(""),
-    override val criteria: List<Criteria> = emptyList(),
+    override val onComplete: Ref<TriggerableEntry> = emptyRef(),
     override val priorityOverride: Optional<Int> = Optional.empty(),
 ) : BaseCountObjectiveEntry {
     override suspend fun display(): AudienceFilter {

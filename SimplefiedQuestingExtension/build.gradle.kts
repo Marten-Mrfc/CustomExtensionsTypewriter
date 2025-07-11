@@ -5,6 +5,7 @@ plugins {
 repositories {}
 dependencies {
     implementation("com.typewritermc:QuestExtension:0.9.0")
+    implementation("com.typewritermc:BasicExtension:0.9.0")
 }
 
 typewriter {
@@ -13,8 +14,9 @@ typewriter {
     extension {
         name = "SimplifiedQuesting"
         shortDescription = "An extension that makes making questing easier!"
-        description = "This extension adds a bunch of new features to the questing system, making it easier to create simple quests."
-        engineVersion = "0.9.0-beta-161"
+        description =
+            "This extension adds a bunch of new features to the questing system, making it easier to create simple quests."
+        engineVersion = "0.9.0-beta-162"
         channel = com.typewritermc.moduleplugin.ReleaseChannel.BETA
         dependencies {
             dependency("typewritermc", "Quest")
